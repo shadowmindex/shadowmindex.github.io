@@ -1,38 +1,21 @@
-<?xml version='1.0' encoding='utf-8'?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ShadowMindex: Behavioral Psychology &amp; Dark Persuasion</title>
     <link>https://shadowmindex.github.io</link>
+    <atom:link href="https://shadowmindex.github.io/podcast.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <description>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</description>
     <itunes:author>ShadowMindex</itunes:author>
+    <itunes:summary>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>ShadowMindex</itunes:name>
+      <itunes:email>shadowmindex@gmail.com</itunes:email>
+    </itunes:owner>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://shadowmindex.github.io/profile_pic.png" />
     <itunes:category text="Society &amp; Culture">
       <itunes:category text="Philosophy" />
     </itunes:category>
-    <item>
-      <title>If You're Arrogant Than Everyone Else, Watch This - Schopenhauer</title>
-      <description>You assume that being the most confident automatically wins hearts, yet true power comes from humility, not arrogance. When you act like everyone else isn't special and chase applause, you invite rejection and erode your own worth. Schopenhauer explains that craving admiration triggers anxiety, and switching to authentic connection rewires your mind, as shown when a once arrogant speaker rebuilt trust after losing fans.
-
-Chapters:
-00:00 The Arrogance Paradox: Why Superiority Feels Like Inferiority
-00:42 Leipzig 1879: The First Laboratory of the Inflated Self
-03:21 The Will's Disguise: How Intellect Becomes Servant to Ego
-05:44 The Veil of Maya: Why the Arrogant Cannot See Their Own Projections
-06:56 The Salon Tyrant: Wittgenstein's Poker and the Performance of Dominance
-09:48 Default Mode Arrogance: The Neuroscience of Self-Referential Rigidity
-10:47 The Evolutionary Trap: Why Groups Reward Confidence Over Competence
-13:33 The Theranos Collapse: Institutional Arrogance as Systemic Failure
-16:19 Micro-Tells of the Macro-Ego: 7 Behavioral Leaks You Cannot Fake
-19:10 Aesthetic Contemplation: The Only Exit from the Prison of Will
-21:37 Compassion as Intelligence: The Synthesis — Why Seeing Through Others Is Seeing Through Yourself
-
-Watch video: https://youtu.be/Eqg0HRebeLE</description>
-      <guid isPermaLink="false">shadowmindex-20261126_011139</guid>
-      <pubDate>Thu, 26 Nov 2026 11:59:43 GMT</pubDate>
-      <enclosure url="https://github.com/shadowmindex/shadowmindex.github.io/releases/download/ep-20261126_011139/ep_20261126_011139.mp3" length="21625108" type="audio/mpeg" />
-      <itunes:duration>1351</itunes:duration>
-    </item>
   </channel>
 </rss>

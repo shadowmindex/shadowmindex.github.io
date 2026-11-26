@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcast &amp; Episodes — ShadowMindex</title>
+  <link rel="alternate" type="application/rss+xml" title="ShadowMindex Podcast RSS" href="https://shadowmindex.github.io/podcast.xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <img src="profile_pic.png" alt="ShadowMindex" onerror="this.style.display='none'">
+      <span>ShadowMindex</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="episodes.html" class="active">Podcast &amp; Episodes</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section>
+    <span class="badge">Full Archive</span>
+    <h1>Podcast &amp; Documentary Episodes</h1>
+    <p class="lead">Stream audio episodes directly or jump into the full-length visual documentaries.</p>
+    <div class="rss-bar" style="margin-bottom: 28px;">
+      <div>
+        <div class="meta">Podcast RSS Feed URL:</div>
+        <code>https://shadowmindex.github.io/podcast.xml</code>
+      </div>
+      <button class="btn" onclick="navigator.clipboard.writeText('https://shadowmindex.github.io/podcast.xml'); this.textContent='Copied!';">Copy RSS URL</button>
+    </div>
+
+    <div id="all-episodes" class="grid">
+      <div class="card"><h3>Loading Archive...</h3></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div>&copy; 2026 ShadowMindex. Behavioral Psychology &amp; Human Nature.</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@ShadowMindex" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@shadowmindex" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.instagram.com/shadowmindex" target="_blank" rel="noopener">Instagram</a>
+      <a href="podcast.xml">RSS Feed</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+fetch('episodes.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(items => {
+    const grid = document.getElementById('all-episodes');
+    if (!items || !items.length) {
+      grid.innerHTML = '<div class="card"><h3>No Episodes Indexed Yet</h3><p>New episodes publish automatically every Monday and Thursday.</p></div>';
+      return;
+    }
+    grid.innerHTML = items.map(ep => `
+      <article class="card">
+        <div class="meta">${ep.pubDate || ''} &bull; ${ep.duration || '20+ min'}</div>
+        <h3>${ep.title}</h3>
+        <p>${ep.description || ''}</p>
+        ${ep.audioUrl ? `<audio controls preload="none" src="${ep.audioUrl}"></audio>` : ''}
+        <div class="btn-row">
+          ${ep.youtubeUrl ? `<a class="btn btn-primary" href="${ep.youtubeUrl}" target="_blank" rel="noopener">Watch on YouTube</a>` : ''}
+          ${ep.audioUrl ? `<a class="btn" href="${ep.audioUrl}" target="_blank" rel="noopener">Download MP3</a>` : ''}
+        </div>
+      </article>
+    `).join('');
+  });
+</script>
+</body>
+</html>

@@ -1,97 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShadowMindex — Behavioral Psychology &amp; Cognitive Case Studies</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #0b0d12;
-      color: #e6e8ee;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 64px 24px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: #181c26;
-      color: #9aa4bf;
-      border: 1px solid #262c3d;
-      border-radius: 999px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: 2.4rem;
-      margin: 0 0 16px;
-      color: #ffffff;
-    }
-    p {
-      color: #b4bccf;
-      font-size: 1.05rem;
-    }
-    .card {
-      background: #121620;
-      border: 1px solid #222838;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: 32px;
-    }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: #ffffff;
-    }
-    a {
-      color: #7aa2f7;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      margin-top: 56px;
-      padding-top: 24px;
-      border-top: 1px solid #1e2330;
-      font-size: 0.9rem;
-      color: #7d859c;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadowMindex — Behavioral Psychology &amp; Dark Persuasion</title>
+  <meta name="description" content="Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.">
+  <link rel="alternate" type="application/rss+xml" title="ShadowMindex Podcast RSS" href="https://shadowmindex.github.io/podcast.xml">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <span class="badge">Official Channel Portal</span>
-    <h1>ShadowMindex</h1>
-    <p>
-      ShadowMindex explores behavioral psychology, cognitive biases, decision-making patterns, and real-world persuasion case studies through structured educational documentaries and short-form visual breakdowns.
-    </p>
+<header>
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <img src="profile_pic.png" alt="ShadowMindex" onerror="this.style.display='none'">
+      <span>ShadowMindex</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="episodes.html">Podcast &amp; Episodes</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
 
-    <div class="card">
-      <h2>What We Publish</h2>
-      <p>
-        Weekly long-form psychological case studies and concise analytical trailers designed to help viewers recognize subtle influence mechanics, social dynamics, and human behavior patterns.
-      </p>
-      <p>
-        Watch on YouTube: <a href="https://www.youtube.com/@ShadowMindex" target="_blank" rel="noopener">youtube.com/@ShadowMindex</a> and subscribe <a href="https://www.youtube.com/@ShadowMindex?sub_confirmation=1" target="_blank" rel="noopener">👉 @ShadowMindex 👈</a>.
-      </p>
+<main class="container">
+  <section class="hero">
+    <span class="badge">Behavioral Psychology &bull; Philosophy &bull; Case Studies</span>
+    <h1>Decode the Hidden Mechanics of Human Behavior.</h1>
+    <p class="lead">
+      ShadowMindex produces long-form behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies—available on YouTube, TikTok, Instagram, and podcast platforms.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://www.youtube.com/@ShadowMindex" target="_blank" rel="noopener">Watch on YouTube</a>
+      <a class="btn" href="episodes.html">Browse Podcast Episodes</a>
+      <a class="btn" href="https://www.tiktok.com/@shadowmindex" target="_blank" rel="noopener">TikTok</a>
+      <a class="btn" href="https://www.instagram.com/shadowmindex" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn" href="podcast.xml">RSS Feed (XML)</a>
     </div>
 
-    <footer>
-      <span>&copy; 2026 ShadowMindex</span>
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-    </footer>
+    <div class="rss-bar">
+      <div>
+        <div class="meta">Direct Podcast RSS Feed URL (Apple Podcasts / Spotify / Overcast):</div>
+        <code id="rss-url">https://shadowmindex.github.io/podcast.xml</code>
+      </div>
+      <button class="btn" onclick="navigator.clipboard.writeText('https://shadowmindex.github.io/podcast.xml'); this.textContent='Copied!';">Copy RSS URL</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Latest Episodes</h2>
+    <p class="section-sub">Listen directly in your browser or watch the full documentary breakdown on YouTube.</p>
+    <div id="latest-grid" class="grid">
+      <div class="card">
+        <h3>Loading Episodes...</h3>
+        <p class="meta">Fetching latest feed from episodes.json</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div>&copy; 2026 ShadowMindex. Behavioral Psychology &amp; Human Nature.</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@ShadowMindex" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@shadowmindex" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.instagram.com/shadowmindex" target="_blank" rel="noopener">Instagram</a>
+      <a href="podcast.xml">RSS Feed</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
   </div>
+</footer>
+
+<script>
+fetch('episodes.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(items => {
+    const grid = document.getElementById('latest-grid');
+    if (!items || !items.length) {
+      grid.innerHTML = '<div class="card"><h3>First Episode Publishing Soon</h3><p>Check back shortly or subscribe on <a href="https://www.youtube.com/@ShadowMindex" style="text-decoration:underline;">YouTube @ShadowMindex</a>.</p></div>';
+      return;
+    }
+    grid.innerHTML = items.slice(0, 6).map(ep => `
+      <article class="card">
+        <div class="meta">${ep.pubDate || ''} &bull; ${ep.duration || '20+ min'}</div>
+        <h3>${ep.title}</h3>
+        <p>${(ep.description || '').slice(0, 180)}${(ep.description || '').length > 180 ? '...' : ''}</p>
+        ${ep.audioUrl ? `<audio controls preload="none" src="${ep.audioUrl}"></audio>` : ''}
+        <div class="btn-row">
+          ${ep.youtubeUrl ? `<a class="btn btn-primary" href="${ep.youtubeUrl}" target="_blank" rel="noopener">Watch Video</a>` : ''}
+          ${ep.audioUrl ? `<a class="btn" href="${ep.audioUrl}" target="_blank" rel="noopener">MP3</a>` : ''}
+        </div>
+      </article>
+    `).join('');
+  })
+  .catch(() => {
+    document.getElementById('latest-grid').innerHTML = '<div class="card"><h3>Episodes Archive</h3><p>Visit <a href="https://www.youtube.com/@ShadowMindex" style="text-decoration:underline;">@ShadowMindex on YouTube</a> or subscribe via <a href="podcast.xml" style="text-decoration:underline;">podcast.xml</a>.</p></div>';
+  });
+</script>
 </body>
 </html>
