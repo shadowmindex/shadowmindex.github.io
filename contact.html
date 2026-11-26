@@ -28,7 +28,9 @@
       border-color: #e50914;
     }
     .form-group textarea { min-height: 150px; resize: vertical; }
-    .form-note { margin-top: 14px; font-size: 0.9rem; opacity: 0.8; }
+    .form-note { margin-top: 14px; font-size: 0.9rem; opacity: 0.85; }
+    .status-ok { display: none; color: #4ade80; font-weight: 600; }
+    .status-err { display: none; color: #f87171; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -56,11 +58,10 @@
     <p class="lead">Have a question about an episode, a behavioral psychology topic suggestion, or a collaboration inquiry? Send a message below.</p>
 
     <div class="card contact-card">
-      <form id="contact-form" action="https://formsubmit.co/bibforuall+ShadowMindex@gmail.com" method="POST">
+      <form id="contact-form" action="https://formsubmit.co/REPLACE_WITH_FORMSUBMIT_FORM_TOKEN" method="POST">
         <input type="hidden" name="_subject" value="New ShadowMindex Website Inquiry">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://shadowmindex.github.io/contact.html?sent=1">
         <input type="text" name="_honey" style="display:none">
 
         <div class="form-group">
@@ -84,16 +85,14 @@
         </div>
 
         <div class="btn-row">
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <a class="btn" id="mailto-fallback" href="mailto:bibforuall+ShadowMindex@gmail.com">Open in Email App</a>
+          <button type="submit" id="submit-btn" class="btn btn-primary">Send Message</button>
         </div>
 
-        <p id="sent-banner" class="form-note" style="display:none; color:#4ade80; font-weight:600;">
-          Thank you! Your message has been submitted to ShadowMindex.
+        <p id="status-ok" class="form-note status-ok">
+          Thank you! Your message has been sent.
         </p>
-        <p class="form-note">
-          Prefer emailing directly? Reach us at
-          <a href="mailto:bibforuall+ShadowMindex@gmail.com" style="text-decoration:underline;">bibforuall+ShadowMindex@gmail.com</a>.
+        <p id="status-err" class="form-note status-err">
+          Could not send right now. Please try again in a moment.
         </p>
       </form>
     </div>
@@ -116,20 +115,43 @@
 </footer>
 
 <script>
-if (new URLSearchParams(window.location.search).get('sent') === '1') {
-  document.getElementById('sent-banner').style.display = 'block';
-}
-document.getElementById('mailto-fallback').addEventListener('click', function (e) {
-  const name = document.getElementById('sender-name').value.trim();
-  const email = document.getElementById('sender-email').value.trim();
-  const subj = document.getElementById('inquiry-subject').value.trim() || 'ShadowMindex Inquiry';
-  const msg = document.getElementById('inquiry-message').value.trim();
-  if (name || email || msg) {
-    const body = `Name: ${name}
-Email: ${email}
+const form = document.getElementById('contact-form');
+const btn = document.getElementById('submit-btn');
+const okEl = document.getElementById('status-ok');
+const errEl = document.getElementById('status-err');
 
-${msg}`;
-    this.href = `mailto:bibforuall+ShadowMindex@gmail.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+form.addEventListener('submit', async function (e) {
+  const actionUrl = form.getAttribute('action') || '';
+  if (actionUrl.includes('REPLACE_WITH_FORMSUBMIT_FORM_TOKEN')) {
+    e.preventDefault();
+    errEl.textContent = 'Form endpoint token is not configured yet.';
+    errEl.style.display = 'block';
+    okEl.style.display = 'none';
+    return;
+  }
+  e.preventDefault();
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  okEl.style.display = 'none';
+  errEl.style.display = 'none';
+
+  try {
+    const ajaxUrl = actionUrl.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+    const formData = new FormData(form);
+    const res = await fetch(ajaxUrl, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+    if (!res.ok) throw new Error('Network response not ok');
+    form.reset();
+    okEl.style.display = 'block';
+  } catch (err) {
+    errEl.textContent = 'Could not send right now. Please try again in a moment.';
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
   }
 });
 </script>
