@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns0="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>ShadowMindex: Behavioral Psychology &amp; Dark Persuasion</title>
     <link>https://shadowmindex.github.io</link>
-    <atom:link href="https://shadowmindex.github.io/podcast.xml" rel="self" type="application/rss+xml" />
+    <ns0:link href="https://shadowmindex.github.io/podcast.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <description>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</description>
     <itunes:author>ShadowMindex</itunes:author>
