@@ -1,22 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns0="http://www.w3.org/2005/Atom" version="2.0">
+<rss xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:ns1="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
     <title>ShadowMindex: Behavioral Psychology &amp; Dark Persuasion</title>
     <link>https://shadowmindex.github.io</link>
     <ns0:link href="https://shadowmindex.github.io/podcast.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <description>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</description>
-    <itunes:author>ShadowMindex</itunes:author>
-    <itunes:summary>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</itunes:summary>
-    <itunes:owner>
-      <itunes:name>ShadowMindex</itunes:name>
-      <itunes:email>bibforuall+ShadowMindex@gmail.com</itunes:email>
-    </itunes:owner>
-    <itunes:explicit>false</itunes:explicit>
-    <itunes:image href="https://shadowmindex.github.io/artwork.jpg" />
-    <itunes:category text="Society &amp; Culture">
-      <itunes:category text="Philosophy" />
-    </itunes:category>
+    <ns1:author>ShadowMindex</ns1:author>
+    <ns1:summary>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</ns1:summary>
+    <ns1:owner>
+      <ns1:name>ShadowMindex</ns1:name>
+      <ns1:email>bibforuall+ShadowMindex@gmail.com</ns1:email>
+    </ns1:owner>
+    <ns1:explicit>false</ns1:explicit>
+    <ns1:image href="https://shadowmindex.github.io/artwork.jpg" />
+    <ns1:category text="Society &amp; Culture">
+      <ns1:category text="Philosophy" />
+    </ns1:category>
     <item>
       <title>Why Being Too Nice Kills Your Influence – Machiavelli</title>
       <description>Being agreeable feels safe, but it can train people to discount you. This episode breaks down the warmth-without-status trap, using Machiavelli and modern social psychology to show how boundaries, calm disagreement, and strategic scarcity restore respect. You'll get scripts to stop over-explaining and become influential without becoming cold.
@@ -25,15 +25,30 @@ Watch video: https://youtu.be/qGsOcay_EK8</description>
       <guid isPermaLink="false">yt-qGsOcay_EK8</guid>
       <pubDate>Thu, 26 Nov 2026 20:15:01 GMT</pubDate>
       <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/yt_qGsOcay_EK8.mp3" length="28776005" type="audio/mpeg" />
-      <itunes:duration>1198</itunes:duration>
+      <ns1:duration>1198</ns1:duration>
     </item>
     <item>
       <title>If You're Arrogant Than Everyone Else, Watch This - Schopenhauer</title>
-      <description>Watch on YouTube: https://youtu.be/Eqg0HRebeLE</description>
+      <description>You assume that being the most confident automatically wins hearts, yet true power comes from humility, not arrogance. When you act like everyone else isn't special and chase applause, you invite rejection and erode your own worth. Schopenhauer explains that craving admiration triggers anxiety, and switching to authentic connection rewires your mind, as shown when a once arrogant speaker rebuilt trust after losing fans.
+
+Chapters:
+00:00 The Arrogance Paradox: Why Superiority Feels Like Inferiority
+00:42 Leipzig 1879: The First Laboratory of the Inflated Self
+03:21 The Will's Disguise: How Intellect Becomes Servant to Ego
+05:44 The Veil of Maya: Why the Arrogant Cannot See Their Own Projections
+06:56 The Salon Tyrant: Wittgenstein's Poker and the Performance of Dominance
+09:48 Default Mode Arrogance: The Neuroscience of Self-Referential Rigidity
+10:47 The Evolutionary Trap: Why Groups Reward Confidence Over Competence
+13:33 The Theranos Collapse: Institutional Arrogance as Systemic Failure
+16:19 Micro-Tells of the Macro-Ego: 7 Behavioral Leaks You Cannot Fake
+19:10 Aesthetic Contemplation: The Only Exit from the Prison of Will
+21:37 Compassion as Intelligence: The Synthesis — Why Seeing Through Others Is Seeing Through Yourself
+
+Watch video: https://youtu.be/Eqg0HRebeLE</description>
       <guid isPermaLink="false">yt-Eqg0HRebeLE</guid>
       <pubDate>Thu, 26 Nov 2026 18:20:29 GMT</pubDate>
       <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/yt_Eqg0HRebeLE.mp3" length="21590660" type="audio/mpeg" />
-      <itunes:duration>1349</itunes:duration>
+      <ns1:duration>1349</ns1:duration>
     </item>
   </channel>
 </rss>
