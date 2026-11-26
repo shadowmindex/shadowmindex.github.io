@@ -264,3 +264,14 @@ footer {
 }
 
 .footer-links a:hover { color: var(--text); }
+
+/* Transparent ShadowMindex eye mark */
+.brand img {
+  width: 44px !important;
+  height: 44px !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
