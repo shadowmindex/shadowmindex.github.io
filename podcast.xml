@@ -17,5 +17,13 @@
     <itunes:category text="Society &amp; Culture">
       <itunes:category text="Philosophy" />
     </itunes:category>
+    <item>
+      <title>If You're Arrogant Than Everyone Else, Watch This - Schopenhauer</title>
+      <description>Watch on YouTube: https://youtu.be/Eqg0HRebeLE</description>
+      <guid isPermaLink="false">yt-Eqg0HRebeLE</guid>
+      <pubDate>Thu, 26 Nov 2026 18:20:29 GMT</pubDate>
+      <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/yt_Eqg0HRebeLE.mp3" length="21590660" type="audio/mpeg" />
+      <itunes:duration>1349</itunes:duration>
+    </item>
   </channel>
 </rss>
