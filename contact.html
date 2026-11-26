@@ -58,11 +58,8 @@
     <p class="lead">Have a question about an episode, a behavioral psychology topic suggestion, or a collaboration inquiry? Send a message below.</p>
 
     <div class="card contact-card">
-      <form id="contact-form" action="https://formsubmit.co/REPLACE_WITH_FORMSUBMIT_FORM_TOKEN" method="POST">
-        <input type="hidden" name="_subject" value="New ShadowMindex Website Inquiry">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="text" name="_honey" style="display:none">
+      <form id="contact-form" method="POST">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
         <div class="form-group">
           <label for="sender-name">Your Name</label>
@@ -115,35 +112,35 @@
 </footer>
 
 <script>
+const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbylb2V9t6MbP1GTLpbybeaXZgRMhY4y_IeiEPRrFz2dgXzgUP88FSII16YwrRo1k4ZbIQ/exec";
 const form = document.getElementById('contact-form');
 const btn = document.getElementById('submit-btn');
 const okEl = document.getElementById('status-ok');
 const errEl = document.getElementById('status-err');
 
 form.addEventListener('submit', async function (e) {
-  const actionUrl = form.getAttribute('action') || '';
-  if (actionUrl.includes('REPLACE_WITH_FORMSUBMIT_FORM_TOKEN')) {
-    e.preventDefault();
-    errEl.textContent = 'Form endpoint token is not configured yet.';
+  e.preventDefault();
+  if (!ENDPOINT_URL || ENDPOINT_URL.includes('REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL')) {
+    errEl.textContent = 'Contact form endpoint is not configured yet.';
     errEl.style.display = 'block';
     okEl.style.display = 'none';
     return;
   }
-  e.preventDefault();
+
   btn.disabled = true;
   btn.textContent = 'Sending...';
   okEl.style.display = 'none';
   errEl.style.display = 'none';
 
   try {
-    const ajaxUrl = actionUrl.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
-    const formData = new FormData(form);
-    const res = await fetch(ajaxUrl, {
+    const params = new URLSearchParams(new FormData(form));
+    const res = await fetch(ENDPOINT_URL, {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: formData
+      body: params
     });
-    if (!res.ok) throw new Error('Network response not ok');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const result = await res.json();
+    if (!result.ok) throw new Error(result.error || 'Submission failed');
     form.reset();
     okEl.style.display = 'block';
   } catch (err) {
