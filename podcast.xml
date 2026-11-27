@@ -1,22 +1,32 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:ns1="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:ns0="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>ShadowMindex: Behavioral Psychology &amp; Dark Persuasion</title>
     <link>https://shadowmindex.github.io</link>
     <ns0:link href="https://shadowmindex.github.io/podcast.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <description>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</description>
-    <ns1:author>ShadowMindex</ns1:author>
-    <ns1:summary>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</ns1:summary>
-    <ns1:owner>
-      <ns1:name>ShadowMindex</ns1:name>
-      <ns1:email>bibforuall+ShadowMindex@gmail.com</ns1:email>
-    </ns1:owner>
-    <ns1:explicit>false</ns1:explicit>
-    <ns1:image href="https://shadowmindex.github.io/artwork.jpg" />
-    <ns1:category text="Society &amp; Culture">
-      <ns1:category text="Philosophy" />
-    </ns1:category>
+    <itunes:author>ShadowMindex</itunes:author>
+    <itunes:summary>Deep-dive behavioral psychology documentaries, historical laboratory breakdowns, and real-world persuasion case studies.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>ShadowMindex</itunes:name>
+      <itunes:email>bibforuall+ShadowMindex@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://shadowmindex.github.io/artwork.jpg" />
+    <itunes:category text="Society &amp; Culture">
+      <itunes:category text="Philosophy" />
+    </itunes:category>
+    <item>
+      <title>The Persona You Imagine Is Keeping You From Power – Jung</title>
+      <description>The mask you wear to be accepted is quietly stealing your influence. This ShadowMindex episode uses Carl Jung's theory of the Persona to expose how your self-image becomes a social prison. Learn to drop the performance and command respect without saying a word.
+
+Watch video: https://youtu.be/3xu3wqY7R_k</description>
+      <guid isPermaLink="false">shadowmindex-20261126_234509</guid>
+      <pubDate>Fri, 27 Nov 2026 09:43:23 GMT</pubDate>
+      <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/ep_20261126_234509.mp3" length="23528980" type="audio/mpeg" />
+      <itunes:duration>1470</itunes:duration>
+    </item>
     <item>
       <title>Why Being Too Nice Kills Your Influence – Machiavelli</title>
       <description>Being agreeable feels safe, but it can train people to discount you. This episode breaks down the warmth-without-status trap, using Machiavelli and modern social psychology to show how boundaries, calm disagreement, and strategic scarcity restore respect. You'll get scripts to stop over-explaining and become influential without becoming cold.
@@ -25,7 +35,7 @@ Watch video: https://youtu.be/qGsOcay_EK8</description>
       <guid isPermaLink="false">yt-qGsOcay_EK8</guid>
       <pubDate>Thu, 26 Nov 2026 20:15:01 GMT</pubDate>
       <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/yt_qGsOcay_EK8.mp3" length="28776005" type="audio/mpeg" />
-      <ns1:duration>1198</ns1:duration>
+      <itunes:duration>1198</itunes:duration>
     </item>
     <item>
       <title>If You're Arrogant Than Everyone Else, Watch This - Schopenhauer</title>
@@ -33,7 +43,7 @@ Watch video: https://youtu.be/qGsOcay_EK8</description>
       <guid isPermaLink="false">yt-Eqg0HRebeLE</guid>
       <pubDate>Thu, 26 Nov 2026 18:20:29 GMT</pubDate>
       <enclosure url="https://pub-af807bdb301441df8be7dddf0eef5140.r2.dev/yt_Eqg0HRebeLE.mp3" length="21590660" type="audio/mpeg" />
-      <ns1:duration>1349</ns1:duration>
+      <itunes:duration>1349</itunes:duration>
     </item>
   </channel>
 </rss>
