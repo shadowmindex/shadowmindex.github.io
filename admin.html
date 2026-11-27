@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Portal — ShadowMindex</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .portal-wrap { padding: 40px 0 64px; }
+    .login-card { max-width: 440px; margin: 48px auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .pwd-input { width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); margin: 8px 0 14px; }
+    .error-msg { color: #fca5a5; font-size: 0.9rem; margin-top: 8px; }
+    .top-bar, .tabs, .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .tab-btn { padding: 9px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-weight: 600; cursor: pointer; }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .kpi .k-val { font-size: 1.65rem; font-weight: 700; margin-top: 4px; }
+    .search-input, .select-input { padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+    .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 11px 14px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; cursor: pointer; }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; background: rgba(217, 119, 6, 0.16); color: #fcd34d; }
+    .pill.long { background: rgba(220, 38, 38, 0.16); color: #fca5a5; }
+    .log-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-family: monospace; font-size: 0.8rem; color: #d1d5db; overflow-x: auto; white-space: pre-wrap; max-height: 240px; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-chip { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: 0.84rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html"><img src="profile_pic.png" alt="ShadowMindex" /><span>ShadowMindex</span></a>
+      <div class="meta" id="sync-status">Encrypted Portal</div>
+    </div>
+  </header>
+  <main class="container portal-wrap">
+    <div id="login-view" class="login-card">
+      <div class="badge">Private Access</div>
+      <h1>Admin Portal</h1>
+      <p class="section-sub">Enter passphrase to decrypt locally.</p>
+      <form id="login-form">
+        <label for="pwd">Passphrase</label>
+        <input class="pwd-input" id="pwd" type="password" autocomplete="current-password" required />
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Unlock Portal</button>
+        <div class="error-msg" id="login-error"></div>
+      </form>
+    </div>
+    <div id="dashboard-view" style="display:none;">
+      <div class="top-bar">
+        <div>
+          <div class="badge">Private Operations</div>
+          <h1>ShadowMindex Operations</h1>
+          <div class="meta" id="exported-meta"></div>
+        </div>
+        <div class="btn-row">
+          <select id="channel-select" class="select-input"></select>
+          <button class="btn" id="lock-btn" type="button">Lock</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="analytics" type="button">Analytics</button>
+        <button class="tab-btn" data-tab="queue" type="button">Shorts Queue</button>
+        <button class="tab-btn" data-tab="health" type="button">Pipeline Health</button>
+      </div>
+      <section id="tab-analytics" style="padding:0;">
+        <div class="kpi-grid" id="kpi-grid"></div>
+        <div class="card" style="margin-bottom:20px;">
+          <h3>Top Tags by Views</h3>
+          <div class="tag-cloud" id="tag-cloud"></div>
+        </div>
+        <div class="toolbar">
+          <h2 style="margin:0;">Tracked Videos</h2>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <select id="format-filter" class="select-input">
+              <option value="all">All</option>
+              <option value="long">Long-Form</option>
+              <option value="short">Shorts</option>
+            </select>
+            <input id="video-search" class="search-input" type="search" placeholder="Filter title or tag..." />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="format">Format</th>
+                <th data-sort="title">Title</th>
+                <th data-sort="views">Views</th>
+                <th data-sort="likes">Likes</th>
+                <th data-sort="comments">Comments</th>
+                <th data-sort="duration">Duration</th>
+              </tr>
+            </thead>
+            <tbody id="videos-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="tab-queue" style="display:none;padding:0;">
+        <div class="card" style="margin-bottom:20px;">
+          <h3>Publishing Schedule</h3>
+          <div id="schedule-list" class="meta"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Queue File</th><th>Short Title</th><th>Parent Episode</th><th>Privacy</th></tr>
+            </thead>
+            <tbody id="queue-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="tab-health" style="display:none;padding:0;">
+        <div class="grid" style="margin-bottom:20px;">
+          <div class="card"><h3>Meta Token Metadata</h3><pre class="log-box" id="token-box"></pre></div>
+          <div class="card"><h3>Analytics Cron Log</h3><pre class="log-box" id="analytics-log-box"></pre></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h3>Shorts Cron Log</h3><pre class="log-box" id="shorts-log-box"></pre></div>
+          <div class="card"><h3>Factory Cron Log</h3><pre class="log-box" id="factory-log-box"></pre></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script>
+    const SESSION_KEY = "sm_admin_payload_v1";
+    let state = { payload: null, channel: "shadowmindex", sortKey: "views", sortAsc: false };
+    const b64ToBytes = b64 => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    async function decryptBundle(enc, password) {
+      const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+      const aesKey = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64ToBytes(enc.salt), iterations: enc.iterations || 250000, hash: "SHA-256" }, baseKey, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+      return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64ToBytes(enc.nonce) }, aesKey, b64ToBytes(enc.ciphertext))));
+    }
+    function renderAll() {
+      const ch = state.payload.channels[state.channel]; if (!ch) return; const sum = ch.summary || {};
+      document.getElementById("exported-meta").textContent = `Last synced: ${state.payload.exported_at || "unknown"} · Channel: ${state.channel}`;
+      const kpis = [
+        { label: "Total Views", val: sum.total_views ?? 0, sub: `Long ${sum.long_views ?? 0} · Shorts ${sum.short_views ?? 0}` },
+        { label: "Tracked Videos", val: sum.tracked_videos ?? 0, sub: `${sum.long_videos ?? 0} long · ${sum.short_videos ?? 0} short` },
+        { label: "Total Likes", val: sum.total_likes ?? 0, sub: `${sum.total_comments ?? 0} comments` },
+        { label: "Queued Shorts", val: ch.queue_count ?? 0, sub: "Ready for next slot" },
+      ];
+      document.getElementById("kpi-grid").innerHTML = kpis.map(k => `<div class="kpi"><div class="k-label">${esc(k.label)}</div><div class="k-val">${esc(k.val)}</div><div class="meta">${esc(k.sub)}</div></div>`).join("");
+      document.getElementById("tag-cloud").innerHTML = (sum.top_tags_by_views || []).map(t => `<span class="tag-chip">${esc(t.tag)} <strong>(${esc(t.total_views)})</strong></span>`).join("") || `<span class="meta">No tag metrics yet.</span>`;
+      const fmt = document.getElementById("format-filter").value, q = document.getElementById("video-search").value.trim().toLowerCase();
+      const vids = (ch.videos || []).filter(v => (fmt === "all" || v.format === fmt) && (!q || `${v.title} ${v.tags} ${v.thumbnail_text}`.toLowerCase().includes(q)))
+        .sort((a, b) => typeof a[state.sortKey] === "number" ? (state.sortAsc ? a[state.sortKey] - b[state.sortKey] : b[state.sortKey] - a[state.sortKey]) : (state.sortAsc ? String(a[state.sortKey] ?? "").localeCompare(String(b[state.sortKey] ?? "")) : String(b[state.sortKey] ?? "").localeCompare(String(a[state.sortKey] ?? ""))));
+      document.getElementById("videos-tbody").innerHTML = vids.map(v => `<tr><td><span class="pill ${v.format === "long" ? "long" : ""}">${esc(v.format)}</span></td><td><a href="https://youtu.be/${esc(v.video_id)}" target="_blank" rel="noopener">${esc(v.title)}</a></td><td>${esc(v.views)}</td><td>${esc(v.likes)}</td><td>${esc(v.comments)}</td><td class="meta">${esc(v.duration)}</td></tr>`).join("") || `<tr><td colspan="6" class="meta">No matching videos.</td></tr>`;
+      document.getElementById("schedule-list").innerHTML = Object.entries(state.payload.schedule || {}).map(([k, v]) => `<div><strong>${esc(k)}:</strong> ${esc(v)}</div>`).join("");
+      document.getElementById("queue-tbody").innerHTML = (ch.queued_shorts || []).map(i => `<tr><td class="meta">${esc(i.file)}</td><td>${esc(i.title)}</td><td class="meta">${esc(i.full_video_title)}</td><td>${esc(i.privacyStatus)}</td></tr>`).join("") || `<tr><td colspan="4" class="meta">Shorts queue is empty.</td></tr>`;
+      document.getElementById("token-box").textContent = ch.meta_token ? JSON.stringify(ch.meta_token, null, 2) : "No meta_token_meta.json found.";
+      document.getElementById("analytics-log-box").textContent = (ch.logs?.analytics_cron || []).join("\n") || "No analytics log lines yet.";
+      document.getElementById("shorts-log-box").textContent = (ch.logs?.shorts_cron || []).join("\n") || "No shorts log lines yet.";
+      document.getElementById("factory-log-box").textContent = (ch.logs?.factory_cron || []).join("\n") || "No factory log lines yet.";
+    }
+    function showDashboard(payload) {
+      state.payload = payload; const names = Object.keys(payload.channels || {});
+      state.channel = names.includes(payload.default_channel) ? payload.default_channel : (names[0] || "shadowmindex");
+      document.getElementById("channel-select").innerHTML = names.map(n => `<option value="${esc(n)}" ${n === state.channel ? "selected" : ""}>${esc(n)}</option>`).join("");
+      document.getElementById("login-view").style.display = "none"; document.getElementById("dashboard-view").style.display = "block";
+      document.getElementById("sync-status").textContent = "Unlocked"; renderAll();
+    }
+    document.getElementById("login-form").addEventListener("submit", async e => {
+      e.preventDefault(); const err = document.getElementById("login-error"); err.textContent = "Decrypting...";
+      try {
+        const enc = await (await fetch("admin_data.enc.json", { cache: "no-store" })).json();
+        const plain = await decryptBundle(enc, document.getElementById("pwd").value);
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(plain)); err.textContent = ""; showDashboard(plain);
+      } catch (_) { err.textContent = "Invalid passphrase or unable to decrypt payload."; }
+    });
+    document.getElementById("lock-btn").addEventListener("click", () => {
+      sessionStorage.removeItem(SESSION_KEY); state.payload = null; document.getElementById("pwd").value = "";
+      document.getElementById("dashboard-view").style.display = "none"; document.getElementById("login-view").style.display = "block";
+      document.getElementById("sync-status").textContent = "Encrypted Portal";
+    });
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active");
+      ["analytics", "queue", "health"].forEach(t => { document.getElementById(`tab-${t}`).style.display = t === btn.dataset.tab ? "block" : "none"; });
+    }));
+    document.querySelectorAll("th[data-sort]").forEach(th => th.addEventListener("click", () => {
+      const k = th.dataset.sort; state.sortAsc = state.sortKey === k ? !state.sortAsc : false; state.sortKey = k; renderAll();
+    }));
+    document.getElementById("channel-select").addEventListener("change", e => { state.channel = e.target.value; renderAll(); });
+    document.getElementById("format-filter").addEventListener("change", renderAll);
+    document.getElementById("video-search").addEventListener("input", renderAll);
+    const cached = sessionStorage.getItem(SESSION_KEY);
+    if (cached) { try { showDashboard(JSON.parse(cached)); } catch (_) { sessionStorage.removeItem(SESSION_KEY); } }
+  </script>
+</body>
+</html>
