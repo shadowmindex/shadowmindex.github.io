@@ -48,7 +48,7 @@
       });
       mount.innerHTML = doc.body.innerHTML;
       const loginView = mount.querySelector("#login-view");
-      if (loginView) loginView.remove();
+      if (loginView) loginView.style.display = "none";
 
       doc.querySelectorAll("script").forEach(oldScript => {
         const s = document.createElement("script");
