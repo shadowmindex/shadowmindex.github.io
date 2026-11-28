@@ -37,10 +37,10 @@
       mountApp(bundle);
     }
     function mountApp(bundle) {
+      window.__SM_PORTAL_DATA__ = bundle && bundle.data ? bundle.data : bundle;
       document.open();
       document.write(bundle.app_html);
       document.close();
-      window.__SM_PORTAL_DATA__ = bundle.data;
     }
     document.getElementById("unlock-form").addEventListener("submit", async e => {
       e.preventDefault();
