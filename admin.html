@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-  <div id="app-root">
+  <div id="unlock-shell">
     <main class="container">
       <div class="login-card">
         <div class="badge">Restricted</div>
@@ -26,31 +26,73 @@
       </div>
     </main>
   </div>
+  <div id="portal-mount" style="display:none;"></div>
   <script>
+    const SESSION_KEY = "sm_admin_bundle_v2";
     const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+    function mountApp(bundle) {
+      if (!bundle || !bundle.app_html || !bundle.data) {
+        throw new Error("Invalid session bundle");
+      }
+      window.__SM_PORTAL_DATA__ = bundle.data;
+      document.getElementById("unlock-shell").style.display = "none";
+      const mount = document.getElementById("portal-mount");
+      mount.style.display = "block";
+
+      const doc = new DOMParser().parseFromString(bundle.app_html, "text/html");
+      doc.querySelectorAll("style").forEach(st => {
+        const clone = document.createElement("style");
+        clone.textContent = st.textContent;
+        document.head.appendChild(clone);
+      });
+      mount.innerHTML = doc.body.innerHTML;
+      const loginView = mount.querySelector("#login-view");
+      if (loginView) loginView.remove();
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const s = document.createElement("script");
+        s.textContent = oldScript.textContent;
+        document.body.appendChild(s);
+      });
+    }
+
     async function unlock(pwd) {
       const enc = await (await fetch("admin_data.enc.json", { cache: "no-store" })).json();
       const k0 = await crypto.subtle.importKey("raw", new TextEncoder().encode(pwd), "PBKDF2", false, ["deriveKey"]);
-      const k1 = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(enc.salt), iterations: enc.iterations || 250000, hash: "SHA-256" }, k0, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
-      const bundle = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(enc.nonce) }, k1, b64(enc.ciphertext))));
-      sessionStorage.setItem("sm_admin_bundle_v2", JSON.stringify(bundle));
+      const k1 = await crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: b64(enc.salt), iterations: enc.iterations || 250000, hash: "SHA-256" },
+        k0,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["decrypt"]
+      );
+      const bundle = JSON.parse(new TextDecoder().decode(
+        await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(enc.nonce) }, k1, b64(enc.ciphertext))
+      ));
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(bundle));
       mountApp(bundle);
     }
-    function mountApp(bundle) {
-      window.__SM_PORTAL_DATA__ = bundle && bundle.data ? bundle.data : bundle;
-      document.open();
-      document.write(bundle.app_html);
-      document.close();
-    }
+
     document.getElementById("unlock-form").addEventListener("submit", async e => {
       e.preventDefault();
       const err = document.getElementById("err");
       err.textContent = "Decrypting...";
-      try { await unlock(document.getElementById("pwd").value); }
-      catch (_) { err.textContent = "Invalid passphrase."; }
+      try {
+        await unlock(document.getElementById("pwd").value);
+      } catch (_) {
+        err.textContent = "Invalid passphrase.";
+      }
     });
-    const saved = sessionStorage.getItem("sm_admin_bundle_v2");
-    if (saved) { try { mountApp(JSON.parse(saved)); } catch (_) { sessionStorage.removeItem("sm_admin_bundle_v2"); } }
+
+    const saved = sessionStorage.getItem(SESSION_KEY);
+    if (saved) {
+      try {
+        mountApp(JSON.parse(saved));
+      } catch (_) {
+        sessionStorage.removeItem(SESSION_KEY);
+      }
+    }
   </script>
 </body>
 </html>
